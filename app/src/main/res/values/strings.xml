@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">The Bloom Room</string>
+    <string name="sign_in_to_your_account">Sign in to your account</string>
+    <string name="sign_in_to_your_account_button"><u>Sign in to your account</u></string>
+
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="sign_in">SIGN IN</string>
+    <string name="not_a_member">Not a member?</string>
+    <string name="create_a_new_account_button"><u>Create a new account</u></string>
+    <string name="background_image">Background Image</string>
+    <string name="circle_background">Circle Background</string>
+    <string name="logo">Logo</string>
+    <string name="create_a_new_account">Create a new account</string>
+    <string name="full_name">Full Name</string>
+    <string name="sign_up">SIGN UP</string>
+    <string name="already_a_member">Already a member?</string>
+</resources>
