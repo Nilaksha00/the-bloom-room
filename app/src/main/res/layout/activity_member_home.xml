@@ -27,11 +27,12 @@
         app:layout_constraintTop_toBottomOf="@+id/logo" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/greetName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
         android:text="@string/michelle"
+        android:textStyle="bold"
         android:textColor="@color/background"
         android:textFontWeight="500"
         android:textSize="30sp"
@@ -49,7 +50,7 @@
         android:textSize="12sp"
         android:paddingHorizontal="15dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4"
+        app:layout_constraintTop_toBottomOf="@+id/greetName"
         style="?android:attr/borderlessButtonStyle"/>
 
     <TextView

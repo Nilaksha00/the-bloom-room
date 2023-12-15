@@ -28,6 +28,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private Button loginButton;
     private ProgressBar spinner;
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,8 +39,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         editTextEmail = findViewById(R.id.email);
         editTextPassword = findViewById(R.id.password);
         loginButton = findViewById(R.id.sign_in_button);
-//        spinner = (ProgressBar)findViewById(R.id.progressBar1);
-//        spinner.setVisibility(View.GONE);
+        spinner = (ProgressBar)findViewById(R.id.progressBar1);
+        spinner.setVisibility(View.GONE);
 
         @SuppressLint({"MissingInflatedId", "LocalSuppress"}) TextView registerTextView = findViewById(R.id.register_textview);
 
@@ -48,6 +49,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             public void onClick(View v) {
                 Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
                 startActivity(intent);
+            }
+        });
+
+        loginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                spinner.setVisibility(View.VISIBLE);
+                userLogin();
             }
         });
     }
@@ -69,13 +78,17 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
 
         firebaseAuth.signInWithEmailAndPassword(Email, Password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
+                spinner.setVisibility(View.GONE);
                 if(task.isSuccessful()){
+                    spinner.setVisibility(View.VISIBLE);
                     checkRole();
+                    Toast.makeText(LoginActivity.this, "Login Successfully",Toast.LENGTH_SHORT).show();
                 }
                 else{
-                    Toast.makeText(getApplicationContext(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(),"Incorrect Credentials", Toast.LENGTH_SHORT).show();
 
                 }
             }
@@ -93,24 +106,24 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
-                        // Assuming you have a field named "role" in your document
                         String userRole = document.getString("role");
 
                         // Redirect based on the user's role
                         if ("admin".equals(userRole)) {
-                            Intent memberIntent = new Intent(LoginActivity.this, MemberHomeActivity.class);
+                            Intent memberIntent = new Intent(LoginActivity.this, RegisterActivity.class);
+                            memberIntent.putExtra("FullName", document.getString("fullname"));
+                            memberIntent.putExtra("Email", document.getString("email"));
                             startActivity(memberIntent);
-                        } else if ("member".equals(userRole)) {
-                            Intent adminIntent = new Intent(LoginActivity.this, RegisterActivity.class);
+                        } else {
+                            Intent adminIntent = new Intent(LoginActivity.this, MemberHomeActivity.class);
+                            adminIntent.putExtra("FullName", document.getString("fullname"));
+                            adminIntent.putExtra("Email", document.getString("email"));
                             startActivity(adminIntent);
                         }
-                    } else {
-                        // Handle the case where the document does not exist
-                        // This might be an error or a new user
                     }
                 } else {
-                    // Handle errors in fetching the document
-                    // For example, display an error message
+                    Toast.makeText(LoginActivity.this, "Error! Try Again",Toast.LENGTH_SHORT).show( );
+
                 }
             }
         });

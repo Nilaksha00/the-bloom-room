@@ -100,12 +100,14 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 final String Role = "member";
+                spinner.setVisibility(View.GONE);
                 if(task.isSuccessful()){
                     User user = new User(
                             FullName,
                             Email,
                             Role
                     );
+                    spinner.setVisibility(View.VISIBLE);
                     updateDatabase(user);
                 }
                 else {
