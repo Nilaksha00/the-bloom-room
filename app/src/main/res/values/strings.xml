@@ -18,4 +18,5 @@
     <string name="hi"><b>Hi</b></string>
     <string name="michelle"><b>Michelle!</b></string>
     <string name="track_my_orders">Track my orders</string>
+    <string name="categories">Categories</string>
 </resources>

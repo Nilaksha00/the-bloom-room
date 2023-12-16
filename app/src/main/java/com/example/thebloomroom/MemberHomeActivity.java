@@ -1,19 +1,30 @@
 package com.example.thebloomroom;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
-import android.graphics.Typeface;
 import android.os.Bundle;
-import android.text.Spannable;
-import android.text.SpannableString;
-import android.text.style.StyleSpan;
+import android.util.Log;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.thebloomroom.adapter.TrendingAdapter;
+import com.example.thebloomroom.model.FlowerItem;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MemberHomeActivity extends AppCompatActivity {
 
     TextView greetName;
+    RecyclerView trendingRecycler;
+    TrendingAdapter trendingAdapter;
+    List<FlowerItem> trendingList;
+    FirebaseFirestore firebaseFirestore;
+
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,13 +33,60 @@ public class MemberHomeActivity extends AppCompatActivity {
 
         greetName = findViewById(R.id.greetName);
 
-        Intent intent = getIntent();
-        String Name = intent.getStringExtra("FullName");
+//        Intent intent = getIntent();
+//        String Name = intent.getStringExtra("FullName");
+//
+//        String firstName =   Name.split(" ")[0];
+//
+//        SpannableString spannableString = new SpannableString(firstName);
+//        spannableString.setSpan(new StyleSpan(Typeface.BOLD), 0, spannableString.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+//        greetName.setText(spannableString);
 
-        String firstName =   Name.split(" ")[0];
+        trendingList = new ArrayList<>();
+        trendingAdapter = new TrendingAdapter(this, trendingList);
 
-        SpannableString spannableString = new SpannableString(firstName);
-        spannableString.setSpan(new StyleSpan(Typeface.BOLD), 0, spannableString.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        greetName.setText(spannableString);
+        setTrendingRecycler();
+
+        firebaseFirestore = FirebaseFirestore.getInstance();
+
+        fetchTrendingItems();
+    }
+
+    private void setTrendingRecycler() {
+        trendingRecycler = findViewById(R.id.trending_recycler_view);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false);
+        trendingRecycler.setLayoutManager(layoutManager);
+        trendingRecycler.setAdapter(trendingAdapter);
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    private void fetchTrendingItems() {
+        firebaseFirestore.collection("flowers")
+                .get()
+                .addOnCompleteListener(this, task -> {
+                    if (task.isSuccessful()) {
+                        for (DocumentSnapshot document : task.getResult()) {
+
+                            String id = document.getId();
+                            String description = document.getString("description");
+                            String image = document.getString("image");
+                            String name = document.getString("name");
+                            String price = document.getString("price");
+                            String size = document.getString("size");
+
+                            FlowerItem item = new FlowerItem(id, description, image, name, price, size);
+
+                            trendingList.add(item);
+                            Log.e("FLOWER ARRAY", item.getImage());
+                        }
+
+                        trendingAdapter.notifyDataSetChanged();
+                    } else {
+                        Exception e = task.getException();
+                        if (e != null) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
     }
 }

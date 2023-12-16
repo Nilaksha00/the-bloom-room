@@ -76,15 +76,34 @@
         app:srcCompat="@drawable/arrow_down" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/trending_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="1dp"
-        android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@+id/trending"
-        tools:layout_editor_absoluteX="1dp">
+        android:layout_marginTop="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/trending" />
 
+    <TextView
+        android:id="@+id/categories"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:alpha="0.5"
+        android:text="@string/categories"
+        android:textColor="@color/primary_text_color"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/trending_recycler_view" />
 
-    </androidx.recyclerview.widget.RecyclerView>
+    <ImageView
+        android:id="@+id/categories_icon"
+        android:alpha="0.8"
+        android:layout_width="18dp"
+        android:layout_height="12dp"
+        android:layout_marginTop="22dp"
+        app:layout_constraintStart_toEndOf="@+id/categories"
+        app:layout_constraintTop_toBottomOf="@+id/trending_recycler_view"
+        app:srcCompat="@drawable/arrow_down" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

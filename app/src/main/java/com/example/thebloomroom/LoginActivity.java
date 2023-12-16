@@ -2,6 +2,7 @@ package com.example.thebloomroom;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -27,6 +28,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     EditText editTextEmail, editTextPassword;
     private Button loginButton;
     private ProgressBar spinner;
+    SharedPreferences sharedPreferences;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -35,6 +37,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         setContentView(R.layout.activity_login);
 
         firebaseAuth = FirebaseAuth.getInstance();
+        sharedPreferences = getSharedPreferences("UserDetails", MODE_PRIVATE);
 
         editTextEmail = findViewById(R.id.email);
         editTextPassword = findViewById(R.id.password);
@@ -108,16 +111,20 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     if (document.exists()) {
                         String userRole = document.getString("role");
 
-                        // Redirect based on the user's role
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putString("UserID", userID);
+                        editor.putString("Email", document.getString("email"));
+                        editor.putString("FullName", document.getString("fullname"));
+
                         if ("admin".equals(userRole)) {
                             Intent memberIntent = new Intent(LoginActivity.this, RegisterActivity.class);
                             memberIntent.putExtra("FullName", document.getString("fullname"));
                             memberIntent.putExtra("Email", document.getString("email"));
+                            memberIntent.putExtra("UserID", userID);
                             startActivity(memberIntent);
                         } else {
                             Intent adminIntent = new Intent(LoginActivity.this, MemberHomeActivity.class);
                             adminIntent.putExtra("FullName", document.getString("fullname"));
-                            adminIntent.putExtra("Email", document.getString("email"));
                             startActivity(adminIntent);
                         }
                     }
