@@ -16,6 +16,7 @@ public class FlowerDetailsActivity extends AppCompatActivity {
     ImageView backIcon, flowerImageView;
     TextView flowerNameView, flowerPriceView, flowerSizeView, flowerDescriptionView;
     Button orderButton;
+    String flowerName, flowerId, flowerPrice, flowerImage, flowerSize, flowerDescription;
 
     @SuppressLint("MissingInflatedId")
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,21 +36,8 @@ public class FlowerDetailsActivity extends AppCompatActivity {
             public void onClick(View view) { onBackPressed(); }
         });
 
-        Intent intent = getIntent();
-        String flowerName = intent.getStringExtra("flowerName");
-        String flowerId = intent.getStringExtra("flowerId");
-        String flowerPrice = intent.getStringExtra("flowerPrice");
-        String flowerImage = intent.getStringExtra("flowerImage");
-        String flowerSize = intent.getStringExtra("flowerSize");
-        String flowerDescription = intent.getStringExtra("flowerDescription");
 
-        flowerNameView.setText(flowerName);
-        flowerPriceView.setText("LKR " + flowerPrice + ".00");
-        flowerSizeView.setText(flowerSize + " inch");
-        flowerDescriptionView.setText(flowerDescription);
-        Picasso.get().load(flowerImage).into(flowerImageView);
-
-        backIcon.setOnClickListener(new View.OnClickListener() {
+        orderButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(FlowerDetailsActivity.this, OrderFlowerActivity.class);
@@ -59,9 +47,23 @@ public class FlowerDetailsActivity extends AppCompatActivity {
 //                intent.putExtra("flowerSize",flowerItemList.get(position).getSize());
 //                intent.putExtra("flowerDescription",flowerItemList.get(position).getDescription());
                 intent.putExtra("flowerPrice",flowerPrice);
+                startActivity(intent);
             }
         });
 
+        Intent intent = getIntent();
+         flowerName = intent.getStringExtra("flowerName");
+         flowerId = intent.getStringExtra("flowerId");
+         flowerPrice = intent.getStringExtra("flowerPrice");
+         flowerImage = intent.getStringExtra("flowerImage");
+         flowerSize = intent.getStringExtra("flowerSize");
+         flowerDescription = intent.getStringExtra("flowerDescription");
+
+        flowerNameView.setText(flowerName);
+        flowerPriceView.setText("LKR " + flowerPrice + ".00");
+        flowerSizeView.setText(flowerSize + " inch");
+        flowerDescriptionView.setText(flowerDescription);
+        Picasso.get().load(flowerImage).into(flowerImageView);
 
     }
 }
