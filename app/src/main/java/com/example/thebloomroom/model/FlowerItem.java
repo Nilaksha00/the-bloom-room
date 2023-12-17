@@ -1,9 +1,8 @@
 package com.example.thebloomroom.model;
-import com.google.firebase.firestore.PropertyName;
 
 public class FlowerItem {
 
-    private String id, name, image, description;
+    private String id, name, image, description, category;
     private String size, price;
 
     public FlowerItem(String id, String description, String image, String name, String price, String size) {
@@ -15,8 +14,14 @@ public class FlowerItem {
         this.id = id;
     }
 
-    public FlowerItem() {
-        // Empty constructor needed for Firestore
+    public FlowerItem(String id, String name, String image, String description, String category, String size, String price) {
+        this.id = id;
+        this.name = name;
+        this.image = image;
+        this.description = description;
+        this.category = category;
+        this.size = size;
+        this.price = price;
     }
 
     public String getId() {
@@ -27,53 +32,51 @@ public class FlowerItem {
         this.id = id;
     }
 
-    @PropertyName("name")
     public String getName() {
         return name;
     }
 
-    @PropertyName("name")
     public void setName(String name) {
         this.name = name;
     }
 
-    @PropertyName("image")
     public String getImage() {
         return image;
     }
 
-    @PropertyName("image")
     public void setImage(String image) {
         this.image = image;
     }
 
-    @PropertyName("description")
     public String getDescription() {
         return description;
     }
 
-    @PropertyName("description")
     public void setDescription(String description) {
         this.description = description;
     }
 
-    @PropertyName("size")
     public String getSize() {
         return size;
     }
 
-    @PropertyName("size")
     public void setSize(String size) {
         this.size = size;
     }
 
-    @PropertyName("price")
     public String getPrice() {
         return price;
     }
 
-    @PropertyName("price")
     public void setPrice(String price) {
         this.price = price;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 }

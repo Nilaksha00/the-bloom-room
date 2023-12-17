@@ -68,7 +68,7 @@ public class MemberHomeActivity extends AppCompatActivity {
 
     private void setCategoryRecycler() {
         categoryRecycler = findViewById(R.id.categories_recycler_view);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
         categoryRecycler.setLayoutManager(layoutManager);
         categoryRecycler.setAdapter(categoryAdapter);
     }
