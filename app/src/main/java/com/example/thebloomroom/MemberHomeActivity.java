@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.thebloomroom.adapter.TrendingAdapter;
+import com.example.thebloomroom.model.Category;
 import com.example.thebloomroom.model.FlowerItem;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -21,8 +22,11 @@ public class MemberHomeActivity extends AppCompatActivity {
 
     TextView greetName;
     RecyclerView trendingRecycler;
+    RecyclerView categoryRecycler;
     TrendingAdapter trendingAdapter;
+    CategoryAdapter categoryAdapter;
     List<FlowerItem> trendingList;
+    List<Category> categoryList;
     FirebaseFirestore firebaseFirestore;
 
     @SuppressLint("MissingInflatedId")
