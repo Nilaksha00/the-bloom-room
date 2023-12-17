@@ -1,5 +1,6 @@
 package com.example.thebloomroom.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -36,7 +37,7 @@ public class FlowerListPerCategoryAdapter extends RecyclerView.Adapter<FlowerLis
     }
 
     @Override
-    public void onBindViewHolder(@NonNull FlowerListPerCategoryAdapter.FlowerItemViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull FlowerListPerCategoryAdapter.FlowerItemViewHolder holder, @SuppressLint("RecyclerView") int position) {
         holder.name.setText(flowerItemList.get(position).getName());
         holder.price.setText("LKR " +flowerItemList.get(position).getPrice() + ".00");
         Picasso.get().load(flowerItemList.get(position).getImage()).into(holder.image);
@@ -45,8 +46,13 @@ public class FlowerListPerCategoryAdapter extends RecyclerView.Adapter<FlowerLis
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, FlowerDetailsActivity.class);
-//                intent.putExtra("category",categoryList.get(position).getName());
-//                intent.putExtra("id",categoryList.get(position).getId());
+                intent.putExtra("flowerName",flowerItemList.get(position).getName());
+                intent.putExtra("flowerId",flowerItemList.get(position).getId());
+                intent.putExtra("flowerImage",flowerItemList.get(position).getImage());
+                intent.putExtra("flowerSize",flowerItemList.get(position).getSize());
+                intent.putExtra("flowerDescription",flowerItemList.get(position).getDescription());
+                intent.putExtra("flowerPrice",flowerItemList.get(position).getPrice());
+
                 context.startActivity(intent);
             }
         });
