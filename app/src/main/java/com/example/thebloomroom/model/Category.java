@@ -1,14 +1,23 @@
 package com.example.thebloomroom.model;
 
 public class Category {
-    private String name;
+    private String id, name;
     private String priceMin;
     private String priceMax;
 
-    public Category(String name, String priceMin, String priceMax) {
+    public Category(String id, String name, String priceMin, String priceMax) {
+        this.id = id;
         this.name = name;
         this.priceMin = priceMin;
         this.priceMax = priceMax;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getName() {

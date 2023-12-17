@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.thebloomroom.adapter.CategoryAdapter;
 import com.example.thebloomroom.adapter.TrendingAdapter;
 import com.example.thebloomroom.model.Category;
 import com.example.thebloomroom.model.FlowerItem;
@@ -21,8 +22,7 @@ import java.util.List;
 public class MemberHomeActivity extends AppCompatActivity {
 
     TextView greetName;
-    RecyclerView trendingRecycler;
-    RecyclerView categoryRecycler;
+    RecyclerView trendingRecycler, categoryRecycler;
     TrendingAdapter trendingAdapter;
     CategoryAdapter categoryAdapter;
     List<FlowerItem> trendingList;
@@ -46,14 +46,17 @@ public class MemberHomeActivity extends AppCompatActivity {
 //        spannableString.setSpan(new StyleSpan(Typeface.BOLD), 0, spannableString.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 //        greetName.setText(spannableString);
 
-        trendingList = new ArrayList<>();
-        trendingAdapter = new TrendingAdapter(this, trendingList);
-
-        setTrendingRecycler();
-
         firebaseFirestore = FirebaseFirestore.getInstance();
 
+        trendingList = new ArrayList<>();
+        trendingAdapter = new TrendingAdapter(this, trendingList);
+        setTrendingRecycler();
         fetchTrendingItems();
+
+        categoryList = new ArrayList<>();
+        categoryAdapter = new CategoryAdapter(this, categoryList);
+        setCategoryRecycler();
+        fetchCategories();
     }
 
     private void setTrendingRecycler() {
@@ -61,6 +64,13 @@ public class MemberHomeActivity extends AppCompatActivity {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false);
         trendingRecycler.setLayoutManager(layoutManager);
         trendingRecycler.setAdapter(trendingAdapter);
+    }
+
+    private void setCategoryRecycler() {
+        categoryRecycler = findViewById(R.id.categories_recycler_view);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false);
+        categoryRecycler.setLayoutManager(layoutManager);
+        categoryRecycler.setAdapter(categoryAdapter);
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -85,6 +95,33 @@ public class MemberHomeActivity extends AppCompatActivity {
                         }
 
                         trendingAdapter.notifyDataSetChanged();
+                    } else {
+                        Exception e = task.getException();
+                        if (e != null) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    private void fetchCategories() {
+        firebaseFirestore.collection("categories")
+                .get()
+                .addOnCompleteListener(this, task -> {
+                    if (task.isSuccessful()) {
+                        for (DocumentSnapshot document : task.getResult()) {
+
+                            String id = document.getId();
+                            String name = document.getString("name");
+                            String priceMin = document.getString("priceMin");
+                            String priceMax = document.getString("priceMax");
+
+                            Category category = new Category(id, name, priceMin, priceMax);
+                            categoryList.add(category);
+                        }
+
+                        categoryAdapter.notifyDataSetChanged();
                     } else {
                         Exception e = task.getException();
                         if (e != null) {
