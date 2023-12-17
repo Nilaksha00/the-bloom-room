@@ -2,6 +2,7 @@ package com.example.thebloomroom.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.thebloomroom.FlowerListPerCategoryActivity;
 import com.example.thebloomroom.R;
 import com.example.thebloomroom.model.Category;
 
@@ -34,10 +36,19 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
 
     @SuppressLint("SetTextI18n")
     @Override
-    public void onBindViewHolder(@NonNull CategoryAdapter.CategoryViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull CategoryViewHolder holder, @SuppressLint("RecyclerView") final int position) {
         holder.name.setText(categoryList.get(position).getName());
         holder.price.setText("LKR " +categoryList.get(position).getPriceMin() + ".00 - LKR " + categoryList.get(position).getPriceMax() + ".00" );
 
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, FlowerListPerCategoryActivity.class);
+                intent.putExtra("category",categoryList.get(position).getName());
+                intent.putExtra("id",categoryList.get(position).getId());
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
