@@ -13,14 +13,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-public class ViewOrderDetailsActivity extends AppCompatActivity {
+public class AdminOrderDetailsActivity extends AppCompatActivity {
 
     ImageView backIcon;
     Button acceptButton, rejectButton;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view_order_details);
+        setContentView(R.layout.activity_admin_order_details);
 
         Intent intent = getIntent();
         String id = intent.getStringExtra("id");
@@ -80,12 +80,12 @@ public class ViewOrderDetailsActivity extends AppCompatActivity {
 
         orderRef.update("status", i)
                 .addOnSuccessListener(aVoid -> {
-                    Toast.makeText(ViewOrderDetailsActivity.this, "Order Updated Successfully", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(ViewOrderDetailsActivity.this, AdminHomeActivity.class);
+                    Toast.makeText(AdminOrderDetailsActivity.this, "Order Updated Successfully", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(AdminOrderDetailsActivity.this, AdminHomeActivity.class);
                     startActivity(intent);
                 })
                 .addOnFailureListener(e -> {
-                    Toast.makeText(ViewOrderDetailsActivity.this, "Error while updating", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AdminOrderDetailsActivity.this, "Error while updating", Toast.LENGTH_SHORT).show();
 
                 });
 

@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.thebloomroom.R;
-import com.example.thebloomroom.ViewOrderDetailsActivity;
+import com.example.thebloomroom.AdminOrderDetailsActivity;
 import com.example.thebloomroom.model.Order;
 
 import java.util.List;
@@ -50,7 +50,7 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.OrderViewH
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context, ViewOrderDetailsActivity.class);
+                Intent intent = new Intent(context, AdminOrderDetailsActivity.class);
                 intent.putExtra("id",orderList.get(position).getId());
                 intent.putExtra("flowerName",orderList.get(position).getFlowerName());
                 intent.putExtra("total",orderList.get(position).getTotal());

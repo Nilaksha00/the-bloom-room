@@ -1,7 +1,10 @@
 package com.example.thebloomroom;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -28,12 +31,21 @@ public class AdminHomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_home);
 
+        Button manageCategory = findViewById(R.id.manage_category_button);
         firebaseFirestore = FirebaseFirestore.getInstance();
 
         orderList = new ArrayList<>();
         ordersAdapter = new OrdersAdapter(this, orderList);
         setOrderRecycler();
         fetchOrderItems();
+
+        manageCategory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(AdminHomeActivity.this, AdminCategoryListActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void setOrderRecycler() {
