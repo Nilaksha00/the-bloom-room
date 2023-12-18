@@ -1,8 +1,10 @@
 package com.example.thebloomroom;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -29,9 +31,18 @@ public class AdminCategoryListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_admin_category_list);
 
         ImageView backIcon = findViewById(R.id.back_icon);
+        Button addCategory = findViewById(R.id.add_category_button);
         backIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) { onBackPressed(); }
+        });
+
+        addCategory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(AdminCategoryListActivity.this, AdminCreateCategoryActivity.class);
+                startActivity(i);
+            }
         });
 
         firebaseFirestore = FirebaseFirestore.getInstance();

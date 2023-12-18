@@ -28,7 +28,7 @@
         tools:ignore="MissingConstraints" />
 
     <Button
-        android:id="@+id/manage_category_button"
+        android:id="@+id/add_category_button"
         style="?android:attr/borderlessButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="32dp"
@@ -47,6 +47,6 @@
         android:layout_height="600dp"
         android:layout_marginTop="20dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/manage_category_button" />
+        app:layout_constraintTop_toBottomOf="@+id/add_category_button" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

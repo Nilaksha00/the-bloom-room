@@ -19,6 +19,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 public class AdminCategoryDetailsActivity extends AppCompatActivity {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
+    EditText categoryNameEditText, minPriceEditText, maxPriceEditText;
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,9 +35,9 @@ public class AdminCategoryDetailsActivity extends AppCompatActivity {
         ImageView backIcon = findViewById(R.id.back_icon);
         Button updateButton = findViewById(R.id.update_button);
         Button deleteButton = findViewById(R.id.delete_button);
-        EditText categoryNameEditText = findViewById(R.id.category_name);
-        EditText minPriceEditText = findViewById(R.id.min_price);
-        EditText maxPriceEditText = findViewById(R.id.max_price);
+        categoryNameEditText = findViewById(R.id.category_name);
+        minPriceEditText = findViewById(R.id.min_price);
+        maxPriceEditText = findViewById(R.id.max_price);
 
         categoryNameEditText.setText(categoryName);
         minPriceEditText.setText(minPrice);
@@ -125,14 +126,30 @@ public class AdminCategoryDetailsActivity extends AppCompatActivity {
     }
 
     private void updateCategory(String id, String updatedCategoryName, String updatedMinPrice, String updatedMaxPrice) {
-        if (!updatedCategoryName.isEmpty() && !updatedMinPrice.isEmpty() && !updatedMaxPrice.isEmpty()) {
+
+        if(updatedCategoryName.isEmpty()){
+            categoryNameEditText.setError("Category Name is Required");
+            categoryNameEditText.requestFocus();
+            return;
+        }
+
+        if(updatedMinPrice.isEmpty()){
+            minPriceEditText.setError("Minimum Price is Required");
+            minPriceEditText.requestFocus();
+            return;
+        }
+
+        if(updatedMaxPrice.isEmpty()){
+            maxPriceEditText.setError("Maximum Price is Required");
+            maxPriceEditText.requestFocus();
+            return;
+        }
             DocumentReference categoryRef = db.collection("categories").document(id);
 
             categoryRef.update("name", updatedCategoryName,
                             "priceMin", updatedMinPrice,
                             "priceMax", updatedMaxPrice)
                     .addOnSuccessListener(aVoid -> {
-                        // Category updated successfully
                         Toast.makeText(AdminCategoryDetailsActivity.this, "Category updated", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(AdminCategoryDetailsActivity.this, AdminCategoryListActivity.class);
                         startActivity(intent);
@@ -140,9 +157,7 @@ public class AdminCategoryDetailsActivity extends AppCompatActivity {
                     .addOnFailureListener(e -> {
                         Toast.makeText(AdminCategoryDetailsActivity.this, "Failed to update category", Toast.LENGTH_SHORT).show();
                     });
-        } else {
-            Toast.makeText(this, "All fields must be filled", Toast.LENGTH_SHORT).show();
-        }
+
     }
 
     private void deleteCategory(String id) {
