@@ -118,10 +118,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         editor.apply();
 
                         if ("admin".equals(userRole)) {
-                            Intent memberIntent = new Intent(LoginActivity.this, RegisterActivity.class);
-                            memberIntent.putExtra("FullName", document.getString("fullname"));
-                            memberIntent.putExtra("Email", document.getString("email"));
-                            memberIntent.putExtra("UserID", userID);
+                            Intent memberIntent = new Intent(LoginActivity.this, AdminHomeActivity.class);
+//                            memberIntent.putExtra("FullName", document.getString("fullname"));
+//                            memberIntent.putExtra("Email", document.getString("email"));
+//                            memberIntent.putExtra("UserID", userID);
                             startActivity(memberIntent);
                         } else {
                             Intent adminIntent = new Intent(LoginActivity.this, MemberHomeActivity.class);

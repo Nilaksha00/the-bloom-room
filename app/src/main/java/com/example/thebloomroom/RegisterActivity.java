@@ -105,6 +105,7 @@ public class RegisterActivity extends AppCompatActivity {
                     User user = new User(
                             FullName,
                             Email,
+                            Password,
                             Role
                     );
                     spinner.setVisibility(View.VISIBLE);
@@ -127,7 +128,7 @@ public class RegisterActivity extends AppCompatActivity {
             HashMap<String,Object> hashMap=new HashMap<>();
             hashMap.put("fullname",user.getFullName());
             hashMap.put("email",user.getEmail());
-            hashMap.put("password",user.getPassword());
+            hashMap.put("role",user.getRole());
 
             documentReference.set(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override

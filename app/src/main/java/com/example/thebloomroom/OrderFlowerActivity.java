@@ -19,7 +19,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 public class OrderFlowerActivity extends AppCompatActivity {
@@ -150,6 +154,12 @@ public class OrderFlowerActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences("UserDetails", MODE_PRIVATE);
         String userID = sharedPreferences.getString("UserID", "");
 
+        Date currentDate = Calendar.getInstance().getTime();
+
+        // Format the date in "dd/MM/yyyy" format
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+        String formattedDate = dateFormat.format(currentDate);
+
         FirebaseFirestore firestore = FirebaseFirestore.getInstance();
         Map<String, Object> orderData = new HashMap<>();
         orderData.put("flowerID", flowerId);
@@ -159,6 +169,9 @@ public class OrderFlowerActivity extends AppCompatActivity {
         orderData.put("address", address);
         orderData.put("quantity", quantity);
         orderData.put("total", total);
+//        pending - 0 / delivered - 1 / rejected - (-1)
+        orderData.put("status", "0");
+        orderData.put("date", formattedDate);
 
         firestore.collection("orders").add(orderData)
                 .addOnSuccessListener(documentReference -> {

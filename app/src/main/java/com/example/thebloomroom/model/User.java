@@ -2,11 +2,20 @@ package com.example.thebloomroom.model;
 
 public class User {
 
-    public String FullName, Email, Password;
-    public User(String fullName, String email, String password) {
+    public String FullName, Email, Password, Role;
+    public User(String fullName, String email, String password, String role) {
         FullName = fullName;
         Email = email;
         Password = password;
+        Role = role;
+    }
+
+    public String getRole() {
+        return Role;
+    }
+
+    public void setRole(String role) {
+        Role = role;
     }
 
     public String getFullName() {

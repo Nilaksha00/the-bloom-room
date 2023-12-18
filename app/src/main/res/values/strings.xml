@@ -19,4 +19,6 @@
     <string name="michelle"><b>Michelle!</b></string>
     <string name="track_my_orders">Track my orders</string>
     <string name="categories">Categories</string>
+    <string name="orders">Orders</string>
+    <string name="manage_flowers">Manage Flowers</string>
 </resources>
