@@ -32,6 +32,8 @@ public class AdminHomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_admin_home);
 
         Button manageCategory = findViewById(R.id.manage_category_button);
+        Button manageFlowers = findViewById(R.id.manage_flowers_button);
+
         firebaseFirestore = FirebaseFirestore.getInstance();
 
         orderList = new ArrayList<>();
@@ -43,6 +45,14 @@ public class AdminHomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(AdminHomeActivity.this, AdminCategoryListActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        manageFlowers.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(AdminHomeActivity.this, AdminFlowerListActivity.class);
                 startActivity(intent);
             }
         });
