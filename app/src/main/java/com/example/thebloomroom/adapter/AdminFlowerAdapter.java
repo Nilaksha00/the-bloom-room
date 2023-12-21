@@ -2,6 +2,7 @@ package com.example.thebloomroom.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.thebloomroom.AdminFlowerDetailsActivity;
 import com.example.thebloomroom.R;
 import com.example.thebloomroom.model.FlowerItem;
 import com.squareup.picasso.Picasso;
@@ -43,17 +45,21 @@ public class AdminFlowerAdapter extends RecyclerView.Adapter<AdminFlowerAdapter.
         holder.price.setText(flowerList.get(position).getPrice());
         Picasso.get().load(flowerList.get(position).getImage()).into(holder.image);
 
-//        holder.itemView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(context, AdminFlowerDetailsActivity.class);
-//                intent.putExtra("categoryName",categoryList.get(position).getName());
-//                intent.putExtra("id",categoryList.get(position).getId());
-//                intent.putExtra("minPrice",categoryList.get(position).getPriceMin());
-//                intent.putExtra("maxPrice",categoryList.get(position).getPriceMax());
-//                context.startActivity(intent);
-//            }
-//        });
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, AdminFlowerDetailsActivity.class);
+                intent.putExtra("id",flowerList.get(position).getId());
+                intent.putExtra("name",flowerList.get(position).getName());
+                intent.putExtra("category",flowerList.get(position).getCategory());
+                intent.putExtra("price",flowerList.get(position).getPrice());
+                intent.putExtra("image",flowerList.get(position).getImage());
+                intent.putExtra("size",flowerList.get(position).getSize());
+                intent.putExtra("description",flowerList.get(position).getDescription());
+
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override

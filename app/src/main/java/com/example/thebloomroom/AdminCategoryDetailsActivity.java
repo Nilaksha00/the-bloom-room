@@ -120,7 +120,7 @@ public class AdminCategoryDetailsActivity extends AppCompatActivity {
 
                     }
                 });
-
+                builder.show();
             }
         });
     }
@@ -151,7 +151,7 @@ public class AdminCategoryDetailsActivity extends AppCompatActivity {
                             "priceMax", updatedMaxPrice)
                     .addOnSuccessListener(aVoid -> {
                         Toast.makeText(AdminCategoryDetailsActivity.this, "Category updated", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(AdminCategoryDetailsActivity.this, AdminCategoryListActivity.class);
+                        Intent intent = new Intent(AdminCategoryDetailsActivity.this, AdminHomeActivity.class);
                         startActivity(intent);
                     })
                     .addOnFailureListener(e -> {
@@ -167,7 +167,7 @@ public class AdminCategoryDetailsActivity extends AppCompatActivity {
                 .addOnSuccessListener(aVoid -> {
                     Toast.makeText(AdminCategoryDetailsActivity.this, "Category deleted", Toast.LENGTH_SHORT).show();
                     finish();
-                    Intent intent = new Intent(AdminCategoryDetailsActivity.this, AdminCategoryListActivity.class);
+                    Intent intent = new Intent(AdminCategoryDetailsActivity.this, AdminHomeActivity.class);
                     startActivity(intent);
                 })
                 .addOnFailureListener(e -> {

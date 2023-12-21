@@ -34,7 +34,9 @@ public class AdminCategoryListActivity extends AppCompatActivity {
         Button addCategory = findViewById(R.id.add_category_button);
         backIcon.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) { onBackPressed(); }
+            public void onClick(View view) {
+                Intent i = new Intent(AdminCategoryListActivity.this, AdminHomeActivity.class);
+                startActivity(i); }
         });
 
         addCategory.setOnClickListener(new View.OnClickListener() {

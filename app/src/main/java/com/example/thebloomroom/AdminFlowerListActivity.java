@@ -34,7 +34,8 @@ public class AdminFlowerListActivity extends AppCompatActivity {
         Button addFlower= findViewById(R.id.add_flower_button);
         backIcon.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) { onBackPressed(); }
+            public void onClick(View view) { Intent i = new Intent(AdminFlowerListActivity.this, AdminHomeActivity.class);
+                startActivity(i);}
         });
 
         addFlower.setOnClickListener(new View.OnClickListener() {
