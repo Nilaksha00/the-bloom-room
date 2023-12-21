@@ -54,8 +54,6 @@ public class AdminCreateCategoryActivity extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 addCategory();
-                                Intent i = new Intent(AdminCreateCategoryActivity.this, AdminCategoryListActivity.class);
-                                startActivity(i);
                             }
                         });
                 builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
@@ -105,6 +103,8 @@ public class AdminCreateCategoryActivity extends AppCompatActivity {
                 .add(categoryData)
                 .addOnSuccessListener(documentReference -> {
                     Toast.makeText(this, "Category Added Successfully", Toast.LENGTH_SHORT).show();
+                    Intent i = new Intent(AdminCreateCategoryActivity.this, AdminCategoryListActivity.class);
+                    startActivity(i);
 
                 })
                 .addOnFailureListener(e -> {
